@@ -1,21 +1,20 @@
 import sys
 
-L = [[int(i) for i in m.strip() ] for m in open(sys.argv[1]).readlines() ]
+L = [ map(int,m.strip()) for m in open(sys.argv[1]).readlines() ]
 
-A = {(x,y):L[y][x]+1 for x in range(len(L[0])) for y in range(len(L)) if L[y][x]<9 }
-
+A = {(x,y):v+1 for x,l in enumerate(L) for y,v in enumerate(l) if v < 9 }
 q = lambda x,y: filter(A.get,[(x,y-1),(x,y+1),(x-1,y),(x+1,y),(x,y)])
-
 d = {}
-def n(l,c):
+
+def n(c,l=[]):
 	p = min(q(*c), key=A.get)
 	if p == c:
-		d[p] = d[p]|set(l) if p in d else set(l)
+		d[p] = d.get(p,set())|set(l)
 	else:
-		n(l+[c],p)
+		n(p,l+[c])
 
-[n([],p) for p in A]
-a = sum(A[p] for p in d.keys())
+list(map(n,A))
+a = sum(map(A.get,d))
 b = sorted(len(d[x])+1 for x in d)[-3:]
 
 print("Part 1: {:d}".format(a))
