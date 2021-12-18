@@ -17,12 +17,9 @@ def a(A,B):
 	while b:R,b=r(R)
 	return R
 def m(N):
-	while len(N)>1:
-		i=V(N);v,d=N[i]
-		N[i:i+2]=[[3*v+2*N[i+1][0],d-1]]
+	while len(N)>1:i=V(N);v,d=N[i];N[i:i+2]=[[3*v+2*N[i+1][0],d-1]]
 	return N[0][0]
 R=N[0]
-for n in N[1:]:R=a(R,n);
-I=range(len(N))
+for n in N[1:]:R=a(R,n)
 print("Part 1: {:d}".format(m(R)))
-print("Part 2: {:d}".format(max(m(a(N[i],N[j])) for i in I for j in I if i!=j)))
+print("Part 2: {:d}".format(max(m(a(i,j)) for i in N for j in N if i!=j)))
