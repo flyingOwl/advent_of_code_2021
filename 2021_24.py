@@ -1,5 +1,5 @@
-import sys,random
-P=[s.strip().splitlines() for s in open(sys.argv[1]).read().split("inp w") if s]
+import sys
+P=[s.splitlines() for s in open(sys.argv[1]).read().split("inp w\n") if s]
 A=[0]*14;B=[0]*14;S=[]
 
 for i,p in enumerate(P):
